@@ -44,38 +44,54 @@
 ;; scams
 (defalias
   scam6 S-C-spc ;; homerow
-  scam0 S-C-A-M-0 ;; cleanshot capture area
-  scam9 S-C-A-M-9 ;; cleanshot capture previous area
-  scamt S-C-A-M-tab ;; cleanshot capture history
-  scam= S-C-A-M-= ;; cleanshot capture history
-  scamw S-C-A-M-w ;; paste app
-  scamz S-C-A-M-z ;; mouseless app
-  scamd S-C-A-M-d ;; presentify app
+  ;;scam0 S-C-A-M-0 ;; cleanshot capture area
+  ;;scam9 S-C-A-M-9 ;; cleanshot capture previous area
+  ;;scamt S-C-A-M-tab ;; cleanshot capture history
+  ;;scam= S-C-A-M-= ;; cleanshot capture history
+  ;;scamw S-C-A-M-w ;; paste app
+  ;;scamz S-C-A-M-z ;; mouseless app
+  ;;scamd S-C-A-M-d ;; presentify app
 )
 
 
 ;; applications aliases
 (defalias
+  avscod (cmd open -a "Visual Studio Code")
+  aarcbr (cmd open -a "Arc")
+  aperpl (cmd open -a "Perplexity")
+  awhats (cmd open -a "WhatsApp")
   aspoti (cmd open -a "Spotify")
-  aweztr (cmd open -a "WezTerm")
+  anotion (cmd open -a "Notion")
+  aiterm (cmd open -a "iTerm")
+  afindr (cmd open -a "Finder")
+  abrave (cmd open -a "Brave Browser")
+  adavin (cmd open -a "DaVinci Resolve")
+  afigma (cmd open -a "Figma")
+  apostm (cmd open -a "Postman")
+  anotca (cmd open -a "Notion Calendar")
+  acalen (cmd open -a "Calendar")
+  ateleg (cmd open -a "Telegram")
+  aremin (cmd open -a "Reminders")
+  anotes (cmd open -a "Notes")
+  adocke (cmd open -a "Docker")
+  avlc   (cmd open -a "VLC")
+  adisco (cmd open -a "Discord")
+  achrom (cmd open -a "Google Chrome")
+  aprevw (cmd open -a "Preview")
+  asystm (cmd open -a "System Settings")
+  ahomer (cmd open -a "Homerow")
+
+  ;; Others
+    aweztr (cmd open -a "WezTerm")
   aghost (cmd open -a "Ghostty")
   akitty (cmd open -a "Kitty")
-  avscod (cmd open -a "Visual Studio Code")
   avival (cmd open -a "Vivaldi")
-  achrom (cmd open -a "Google Chrome")
   achatg (cmd open -a "ChatGPT")
-  asystm (cmd open -a "System Settings")
   ayoutu (cmd open -a "YouTube")
-  awhats (cmd open -a "WhatsApp Web")
-  aprevw (cmd open -a "Preview")
   a--obs (cmd open -a "OBS")
-  abrave (cmd open -a "Brave Browser")
-  aarcbr (cmd open -a "arc")
   aneovd (cmd open -a "Neovide")
   a-mail (cmd open -a "Mail")
-  adisco (cmd open -a "Discord")
   a1pass (cmd open -a "1Password")
-  afindr (cmd open -a "Finder")
   aforkl (cmd open -a "ForkLift")
   audemy (cmd open -a "Udemy")
   asetap (cmd open -a "Setapp")
@@ -84,12 +100,10 @@
   arecut (cmd open -a "Recut")
   ateams (cmd open -a "Microsoft Teams")
   awinap (cmd open -a "Windows App")
-  adavin (cmd open -a "DaVinci Resolve")
-  acalen (cmd open -a "Calendar")
   a-zoom (cmd open -a "zoom.us")
-  anotes (cmd open -a "Notes")
   asocia (cmd open -a "socialstream")
 )
+
 
 (defalias
   ;; Modifier keys
@@ -101,23 +115,20 @@
   mrmet (tap-hold $tap-time $hold-time j rmet)
   mlalt (tap-hold $tap-time $hold-time s lalt)
   mralt (tap-hold $tap-time $hold-time l ralt)
-  mral2 (tap-hold $tap-time $hold-time ' ralt)
+  ;;mral2 (tap-hold $tap-time $hold-time ' ralt)
 
   ;; Double actions,.
-  mtrik (tap-hold $tap-time $hold-time g C-z) ;; trickster
-  mhome (tap-hold $tap-time $hold-time . @scam6) ;; homerow
-  mmous (tap-hold $tap-time $hold-time l @scamz) ;; mouseless
+  ;;mtrik (tap-hold $tap-time $hold-time g C-z) ;; trickster
+  mhome (tap-hold $tap-time $hold-time m @scam6) ;; homerow
+  ;;mmous (tap-hold $tap-time $hold-time l @scamz) ;; mouseless
   mcopy (tap-hold $tap-time $hold-time c M-c)
   ;; scopyntf (cmd sudo -u linkarzu bash -c "$HOME/github/dotfiles-latest/scripts/macos/mac/misc/400-sketchybarNotif.sh Copied")
   ;; mcopy (tap-hold $tap-time $hold-time c (macro M-c 200 @scopyntf))
   mpast (tap-hold $tap-time $hold-time v M-v)
   mmtab (tap-hold $tap-time $hold-time z M-tab)
   mmgrv (tap-hold $tap-time $hold-time x M-grv)
-  mescc (tap-hold $tap-time $hold-time esc caps)
-  maltt (tap-hold $tap-time $hold-time b (macro @aghost 100 C-b 20 spc)) ;; tmux alternate session
-  maltk (tap-hold $tap-time $hold-time b (macro @akitty 100 C-b 20 l)) ;; kitty alternate session
-  mtcop (tap-hold $tap-time $hold-time m (macro @aghost 100 C-b 20 v)) ;; tmux copy mode
-  mretu (tap-hold $tap-time $hold-time tab ret)
+  ;;mescc (tap-hold $tap-time $hold-time esc caps)
+  ;;mretu (tap-hold $tap-time $hold-time tab (layer-toggle apps))
 
   ;; Other layers tap-hold-press
   ;; mapr configured for both the glove80 and the macbook keyboard
@@ -127,7 +138,7 @@
 
 
   ;; Other layers tap-hold
-  msyst (tap-hold $tap-time $hold-time s (layer-toggle syst))
+  msyst (tap-hold $tap-time $hold-time e (layer-toggle syst))
 
   ;; Multi
   mhypr (tap-hold $tap-time $hold-time spc (multi lsft lctl lalt lmet)) ;; Hyper key
@@ -151,20 +162,22 @@
   ;;     a      s      d      f      g      h      j      k      l      ;      '
   XX     XX     XX     XX     XX     XX     XX     XX     XX     XX     XX     XX     XX
   XX     1      2      3      4      5      6      7      8      9      0      -      =     bspc
-  @mretu q      w      e      r      t      y      u      i      o      p      \      XX     \ 
-  @mnavi @mlctl @mlalt @mlsft @mlmet @mtrik h      @mrmet @mrsft @mralt @mrctl @msymb @mappr
-  lsft   @mmtab @mmgrv @mcopy @mpast @maltk n      @mtcop ,      @mhome /      XX     rsft
-  XX    XX  @msyst @msymb            @mhypr             @mappr      XX         XX     XX     XX
+  tab    q      w   @msyst    r      t      y      u      i      o      p      \      XX     \ 
+  @mnavi @mlctl @mlalt @mlsft @mlmet g      h    @mrmet @mrsft @mralt @mrctl @msymb @mappr
+  lsft   @mmtab @mmgrv @mcopy @mpast b      n    @mhome   ,      .      /      ▲     rsft
+  XX    XX     XX   @msymb            @mhypr             @mappr      XX   ◀    ▼    ▶
 )
 
 (deflayer apps
-  esc   XX     XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
-  grv   XX     XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX   XX
-  tab  @adavin @amword @aexcel @arecut @ateams @ayoutu @awhats @asocia @a--obs @a1pass XX      XX   XX
-  XX   @afindr XX      @adisco @aforkl @achrom @aspoti @avscod @aarcbr XX      @achatg @asystm ret
-  lsft @a-zoom @anotes @acalen @aprevw @avival @aneovd @a-mail @awinap XX      XX      ▲       rsft
-  fn    lctl lalt lmet                 spc                     rmet    ralt    ◀       ▼       ▶
+  esc   XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+  grv   XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
+  tab   XX       @acalen  @apostm  @adavin  @aremin  @ateleg  @abrave  @afigma  @anotca  XX       XX       XX       XX
+  XX    @ahomer  @anotion @aarcbr  @avscod  @afindr  @aiterm  @aperpl  @awhats  @aspoti  XX       XX       ret
+  lsft  XX       @aprevw  @adisco  @adocke  XX       @anotes  @avlc    @achrom  XX       @asystm  ▲        rsft
+  fn    lctl     lalt     lmet               spc               rmet     ralt     ◀        ▼        ▶
 )
+
+
 
 ;; The user executing the command is the user that kanata was started with. 
 ;; For example, if kanata was started by root, the command will be run by 
@@ -183,7 +196,7 @@
   ;;   a      s       d       f       g       h       j       k       l       ;       '
   esc  XX     XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
   grv  XX     XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX    XX
-  tab  XX     XX      M-w     XX      @s-task prev    brdn    brup    next    ▶⏸      XX      XX    XX
+  tab  XX     XX      M-w     M-C-f      @s-task prev    brdn    brup    next    ▶⏸      XX      XX    XX
   XX   XX     XX      XX      XX      XX      M-S-[   XX      XX      M-S-]   XX      XX      ret
   lsft XX     XX      @scolor XX      XX      @saircn @sairsw XX      XX      XX      ▲       rsft
   fn    lctl lalt lmet                 lrld                 rmet  ralt        ◀       ▼       ▶
@@ -199,13 +212,12 @@
 )
 
 (deflayer navi
-  ;;   a      s       d       f       g       h       j       k       l       ;       '
-  esc  XX     XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
-  grv  XX     XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX    del
-@scamt @scam0 @scamw  @scamd  XX      XX      S-A-◀   S-A-▼   S-A-▲   S-A-▶      XX      XX      XX    XX
-  XX   @scam= @scam9     M-[     M-]     XX      ◀       ▼       ▲       ▶       XX      XX      XX
-  lsft XX     XX      XX      XX      XX      XX      XX      XX      XX      XX      ▲       rsft
-  fn    lctl lalt lmet                  _                      rmet    ralt    ◀      ▼       ▶
+  esc    XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX     XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX   XX
+  XX     XX   XX   M-▲ S-M-▲ XX   M-◀ A-◀ A-▶ M-▶ S-▲ XX   XX   XX
+  XX     XX   XX   M-▼ S-M-▼ XX   ◀     ▼    ▲    ▶    S-▼ XX   ret
+  XX     XX   XX   S-◀ S-▶ S-A-◀ S-A-▶ XX   S-M-◀ S-M-▶ XX   XX   XX
+  XX   XX   XX   XX            XX           XX   XX   XX    XX    XX
 )
 
 (defalias
