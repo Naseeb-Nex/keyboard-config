@@ -43,7 +43,7 @@
 
 ;; scams
 (defalias
-  scam6 S-C-spc ;; homerow
+  scam6 S-M-spc ;; homerow
   ;;scam0 S-C-A-M-0 ;; cleanshot capture area
   ;;scam9 S-C-A-M-9 ;; cleanshot capture previous area
   ;;scamt S-C-A-M-tab ;; cleanshot capture history
@@ -134,6 +134,7 @@
   ;; mapr configured for both the glove80 and the macbook keyboard
   mappr (tap-hold-press $tap-time $hold-time ret (layer-toggle apps))
   msymb (tap-hold $tap-time $hold-time bspc (layer-toggle symb))
+  csymb (tap-hold $tap-time $hold-time ' (layer-toggle symb))
   mnavi (tap-hold-press $tap-time $hold-time esc (layer-toggle navi))
 
 
@@ -163,7 +164,7 @@
   XX     XX     XX     XX     XX     XX     XX     XX     XX     XX     XX     XX     XX
   XX     1      2      3      4      5      6      7      8      9      0      -      =     bspc
   tab    q      w   @msyst    r      t      y      u      i      o      p      \      XX     \ 
-  @mnavi @mlctl @mlalt @mlsft @mlmet g      h    @mrmet @mrsft @mralt @mrctl @msymb @mappr
+  @mnavi @mlctl @mlalt @mlsft @mlmet g      h    @mrmet @mrsft @mralt @mrctl @csymb @mappr
   lsft   @mmtab @mmgrv @mcopy @mpast b      n    @mhome   ,      .      /      ▲     rsft
   XX    XX     XX   @msymb            @mhypr             @mappr      XX   ◀    ▼    ▶
 )
@@ -190,25 +191,45 @@
   sairsw (cmd bash -c "/opt/homebrew/bin/SwitchAudioSource -s 'AirPods Pro'; /opt/homebrew/bin/SwitchAudioSource -t input -s 'AirPods Pro'") ;; Switch to airpods
 )
 
-;; To live reload / hot reload the config:
-;; If kanata can’t parse the file, the previous configuration will continue to be used.
+;; Aliases definitions
+(defalias
+  next-song (cmd osascript -e "tell application \"Music\" to next track")
+  pause-play (cmd osascript -e "tell application \"Music\" to playpause")
+  prev-song (cmd osascript -e "tell application \"Music\" to previous track")
+  vol-up (cmd osascript -e "set volume output volume ((output volume of (get volume settings)) + 5)")
+  vol-down (cmd osascript -e "set volume output volume ((output volume of (get volume settings)) - 5)")
+  bright-up (cmd osascript -e "tell application \"System Events\" to key code 144")
+  bright-down (cmd osascript -e "tell application \"System Events\" to key code 145")
+  mute-toggle (cmd osascript -e "set volume output muted (not (output muted of (get volume settings)))")
+  screen-lock (cmd osascript -e "tell application \"System Events\" to keystroke \"q\" using {control down, command down}")
+  screenshot (cmd osascript -e "tell application \"System Events\" to keystroke \"4\" using {shift down, command down}")
+  bluetooth-off (cmd blueutil --power 0)
+  bt-fav1-connect (cmd open "raycast://extensions/VladCuciureanu/toothpick/connect-favorite-device-1")
+  bt-fav1-disconnect (cmd open "raycast://extensions/VladCuciureanu/toothpick/disconnect-favorite-device-1")
+  bt-fav2-connect (cmd open "raycast://extensions/VladCuciureanu/toothpick/connect-favorite-device-2")
+  bt-fav2-disconnect (cmd open "raycast://extensions/VladCuciureanu/toothpick/disconnect-favorite-device-2")
+  clipboard-history (cmd open "raycast://extensions/raycast/clipboard-history/clipboard-history")
+  emoji-symbols (cmd open "raycast://extensions/raycast/emoji-symbols/search-emoji-symbols")
+)
+
 (deflayer syst
   ;;   a      s       d       f       g       h       j       k       l       ;       '
   esc  XX     XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
   grv  XX     XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX    XX
-  tab  XX     XX      M-w     M-C-f      @s-task prev    brdn    brup    next    ▶⏸      XX      XX    XX
-  XX   XX     XX      XX      XX      XX      M-S-[   XX      XX      M-S-]   XX      XX      ret
-  lsft XX     XX      @scolor XX      XX      @saircn @sairsw XX      XX      XX      ▲       rsft
-  fn    lctl lalt lmet                 lrld                 rmet  ralt        ◀       ▼       ▶
+  tab  XX     XX      XX    @next-song  XX    @bt-fav1-connect  @vol-up    brup    @bluetooth-off    @screenshot      XX      XX  XX
+  XX   XX     XX      XX   @pause-play  XX   @bt-fav1-disconnect  @vol-down  brdn  @screen-lock  @mute-toggle  @emoji-symbols  ret
+  lsft XX     XX    @prev-song  XX   @bt-fav2-disconnect  @bt-fav2-connect  @clipboard-history  XX      XX      XX      ▲       rsft
+  fn    lctl lalt lmet                 spc                 rmet  ralt        ◀       ▼       ▶
 )
+
 
 (deflayer symb
   esc  XX     XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX
   grv  XX     XX      XX      XX      XX      XX      XX      XX      XX      XX      XX      XX    XX
-  tab  S-1    S-2     S-3     S-4     S-5     S-6     S-7     S-8     S-9     S-0     XX      XX    XX
-  XX   1      2       3       4       5       6       7       8       9       0       XX      ret
-  lsft XX     XX      XX      [       S-[     S-]     ]       _       .       /       ▲       rsft
-  fn    lctl lalt lmet                  bspc                      rmet    ralt    ◀      ▼       ▶
+  grv  S-1    S-2     S-3     S-4     S-5     S-6     S-7     S-8     S-9     S-0     _      /    XX
+  S-grv 1      2       3       4       5       6       7       8       9       0       -      ret
+  lsft  XX     =      \      [       S-[     S-]     ]       ,       .       +       ▲       rsft
+  fn    lctl lalt lmet                  bspc                      ralt    ralt    ◀      ▼       ▶
 )
 
 (deflayer navi
