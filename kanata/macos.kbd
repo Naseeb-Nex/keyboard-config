@@ -1,12 +1,5 @@
-;; Video related to this file
-;; https://youtu.be/jvJ3f4HHiMY
-
 ;; Kanata docs
 ;; https://github.com/jtroo/kanata/blob/main/docs/config.adoc
-
-;; OS key code mappings
-;; https://github.com/jtroo/kanata/blob/main/parser/src/keys/mod.rs
-
 
 (defcfg
   process-unmapped-keys yes
@@ -44,7 +37,7 @@
 ;; scams
 (defalias
   scam6 S-M-spc ;; homerow
-  ;;scam0 S-C-A-M-0 ;; cleanshot capture area
+  scam0 S-C-A-M-0 ;; cleanshot capture area
   ;;scam9 S-C-A-M-9 ;; cleanshot capture previous area
   ;;scamt S-C-A-M-tab ;; cleanshot capture history
   ;;scam= S-C-A-M-= ;; cleanshot capture history
