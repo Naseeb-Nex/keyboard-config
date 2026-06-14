@@ -49,52 +49,33 @@
 
 ;; applications aliases
 (defalias
-  avscod (cmd open -a "Visual Studio Code")
-  aarcbr (cmd open -a "Arc")
-  aperpl (cmd open -a "Perplexity")
-  awhats (cmd open -a "WhatsApp")
-  aspoti (cmd open -a "Spotify")
-  anotion (cmd open -a "Notion")
-  aiterm (cmd open -a "iTerm")
-  afindr (cmd open -a "Finder")
-  abrave (cmd open -a "Brave Browser")
-  adavin (cmd open -a "DaVinci Resolve")
-  afigma (cmd open -a "Figma")
-  apostm (cmd open -a "Postman")
-  anotca (cmd open -a "Notion Calendar")
-  acalen (cmd open -a "Calendar")
-  ateleg (cmd open -a "Telegram")
-  aremin (cmd open -a "Reminders")
-  anotes (cmd open -a "Notes")
-  adocke (cmd open -a "Docker")
-  avlc   (cmd open -a "VLC")
-  adisco (cmd open -a "Discord")
-  achrom (cmd open -a "Google Chrome")
-  aprevw (cmd open -a "Preview")
-  asystm (cmd open -a "System Settings")
-  ahomer (cmd open -a "Homerow")
-
-  ;; Others
-    aweztr (cmd open -a "WezTerm")
-  aghost (cmd open -a "Ghostty")
-  akitty (cmd open -a "Kitty")
-  avival (cmd open -a "Vivaldi")
-  achatg (cmd open -a "ChatGPT")
-  ayoutu (cmd open -a "YouTube")
-  a--obs (cmd open -a "OBS")
-  aneovd (cmd open -a "Neovide")
-  a-mail (cmd open -a "Mail")
-  a1pass (cmd open -a "1Password")
-  aforkl (cmd open -a "ForkLift")
-  audemy (cmd open -a "Udemy")
-  asetap (cmd open -a "Setapp")
-  amword (cmd open -a "Microsoft Word")
-  aexcel (cmd open -a "Microsoft Excel")
-  arecut (cmd open -a "Recut")
-  ateams (cmd open -a "Microsoft Teams")
-  awinap (cmd open -a "Windows App")
-  a-zoom (cmd open -a "zoom.us")
-  asocia (cmd open -a "socialstream")
+  aantig   (cmd open -a "Antigravity")
+  awhats   (cmd open -b net.whatsapp.WhatsApp)
+  achrom   (cmd open -a "Google Chrome")
+  aremin   (cmd open -a "Reminders")
+  ateleg   (cmd open -a "Telegram")
+  aappst   (cmd open -a "App Store")
+  asafar   (cmd open -a "Safari")
+  apassw   (cmd open -a "Passwords")
+  aopenw   (cmd open -a "OpenWhispr")
+  aprevw   (cmd open -a "Preview")
+  aantgi   (cmd open -a "Antigravity IDE")
+  azennn   (cmd open -a "Zen")
+  acalen   (cmd open -a "Calendar")
+  afindr   (cmd open -a "Finder")
+  acomet   (cmd open -a "Comet")
+  atermi   (cmd open -a "Terminal")
+  anotion  (cmd open -a "Notion")
+  anotes   (cmd open -a "Notes")
+  aclaud   (cmd open -a "Claude")
+  acalcu   (cmd open -a "Calculator")
+  afigma   (cmd open -a "Figma")
+  avlc     (cmd open -a "VLC")
+  amail    (cmd open -a "Mail")
+  aspoti   (cmd open -a "Spotify")
+  asystm   (cmd open -a "System Settings")
+  aghost   (cmd open -a "Ghostty")
+  akitty   (cmd open -a "Kitty")
 )
 
 
@@ -126,6 +107,7 @@
   ;; Other layers tap-hold-press
   ;; mapr configured for both the glove80 and the macbook keyboard
   mappr (tap-hold-press $tap-time $hold-time ret (layer-toggle apps))
+  mtapp (tap-hold-press $tap-time $hold-time tab (layer-toggle apps))
   msymb (tap-hold $tap-time $hold-time bspc (layer-toggle symb))
   csymb (tap-hold $tap-time $hold-time ' (layer-toggle symb))
   mnavi (tap-hold-press $tap-time $hold-time esc (layer-toggle navi))
@@ -156,21 +138,20 @@
   ;;     a      s      d      f      g      h      j      k      l      ;      '
   XX     XX     XX     XX     XX     XX     XX     XX     XX     XX     XX     XX     XX
   XX     1      2      3      4      5      6      7      8      9      0      -      =     bspc
-  tab    q      w   @msyst    r      t      y      u      i      o      p      \      XX     \ 
+  @mtapp q      w   @msyst    r      t      y      u      i      o      p      \      XX     \ 
   @mnavi @mlctl @mlalt @mlsft @mlmet g      h    @mrmet @mrsft @mralt @mrctl @csymb @mappr
   lsft   @mmtab @mmgrv @mcopy @mpast b      n    @mhome   ,      .      /      ▲     rsft
-  XX    XX     XX   @msymb            @mhypr             @mappr      XX   ◀    ▼    ▶
+  fn    XX     XX   @msymb            @mhypr             @mappr      XX   ◀    ▼    ▶
 )
 
 (deflayer apps
   esc   XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
   grv   XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
-  tab   XX       @acalen  @apostm  @adavin  @aremin  @ateleg  @abrave  @afigma  @anotca  XX       XX       XX       XX
-  XX    @ahomer  @anotion @aarcbr  @avscod  @afindr  @aiterm  @aperpl  @awhats  @aspoti  XX       XX       ret
-  lsft  XX       @aprevw  @adisco  @adocke  XX       @anotes  @avlc    @achrom  XX       @asystm  ▲        rsft
+  tab   @aantig  @awhats  @achrom  @aremin  @ateleg  @aappst  @asafar  @apassw  @aopenw  @aprevw  XX       XX       XX
+  XX    @aantgi  @azennn  @acalen  @afindr  @acomet  @atermi  @anotion @anotes  @asystm  XX       XX       ret
+  lsft  XX       @aclaud  @acalcu  @afigma  @avlc    @aspoti  @amail   XX       XX       XX       ▲        rsft
   fn    lctl     lalt     lmet               spc               rmet     ralt     ◀        ▼        ▶
 )
-
 
 
 ;; The user executing the command is the user that kanata was started with. 

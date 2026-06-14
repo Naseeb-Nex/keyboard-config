@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard Mnemonic Visualizer</title>
+    <style>
+        :root {
+            --bg-color: #1e1e1e;
+            --text-color: #e0e0e0;
+            --key-bg: #333333;
+            --key-border: #222222;
+            --key-shadow: #111111;
+            --mapped-bg: #4a90e2;
+            --homerow-bg: #e2874a;
+            --active-bg: #ffffff;
+            --active-text: #000000;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .controls {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        button {
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        button:hover { background-color: #555; }
+        button.active { background-color: var(--homerow-bg); }
+
+        .keyboard-container {
+            background-color: #2a2a2a;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .key {
+            background-color: var(--key-bg);
+            border: 1px solid var(--key-border);
+            border-bottom: 3px solid var(--key-shadow);
+            border-radius: 6px;
+            min-width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-family: monospace;
+            cursor: default;
+            user-select: none;
+            transition: all 0.1s;
+            padding: 0 10px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        /* Key widths for non-standard keys */
+        .key.esc, .key.f-key { height: 30px; font-size: 12px; }
+        .key.tab, .key.bspc { width: 70px; }
+        .key.caps, .key.ret { width: 85px; }
+        .key.lsft, .key.rsft { width: 110px; }
+        .key.spc { width: 280px; }
+        .key.mod { width: 55px; }
+
+        /* Mapped states */
+        .key.mapped {
+            background-color: var(--mapped-bg);
+            color: white;
+            cursor: pointer;
+        }
+
+        .key.mapped.homerow-mode:not(.homerow) {
+            background-color: var(--key-bg);
+            color: var(--text-color);
+            opacity: 0.5;
+        }
+
+        .key.mapped.homerow {
+            background-color: var(--homerow-bg);
+        }
+
+        .key.mapped:hover, .key.mapped.selected {
+            background-color: var(--active-bg);
+            color: var(--active-text);
+            transform: translateY(2px);
+            border-bottom-width: 1px;
+        }
+
+        .details-panel {
+            background-color: #2a2a2a;
+            width: 100%;
+            max-width: 600px;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            text-align: left;
+            min-height: 120px;
+        }
+
+        .details-panel h2 {
+            margin: 0 0 10px 0;
+            color: var(--active-bg);
+        }
+
+        .details-panel .badge {
+            display: inline-block;
+            background: var(--homerow-bg);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .details-panel p {
+            margin: 0;
+            line-height: 1.5;
+            color: #b0b0b0;
+        }
+
+        .empty-state {
+            color: #888;
+            font-style: italic;
+            text-align: center;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Application Mapping Layout</h1>
+        <p>Hover or click on highlighted keys to view mappings.</p>
+    </div>
+
+    <div class="controls">
+        <button id="toggleHomerow">Highlight Homerow Only</button>
+    </div>
+
+    <div class="keyboard-container" id="keyboard">
+        </div>
+
+    <div class="details-panel" id="details">
+        <div class="empty-state">Hover over a highlighted key to see details...</div>
+    </div>
+
+    <script>
+        const mappings = {
+            'A': { app: 'Antigravity IDE', isHomerow: true, mnemonic: 'Antigravity IDE (Primary workspace on strongest pinky).' },
+            'S': { app: 'Zen', isHomerow: true, mnemonic: 'Stillness / Space (Easy ring-finger access for quick focus).' },
+            'D': { app: 'Calendar', isHomerow: true, mnemonic: 'Dates / Day (Middle finger, fast reference).' },
+            'F': { app: 'Finder', isHomerow: true, mnemonic: 'Finder (Natural index finger anchor).' },
+            'G': { app: 'Comet', isHomerow: true, mnemonic: 'Go / Comet (Secondary index finger reach).' },
+            'H': { app: 'Terminal', isHomerow: true, mnemonic: 'Hack / Home (Right index finger, immediate command-line access).' },
+            'J': { app: 'Notion', isHomerow: true, mnemonic: 'Journal (Right index finger anchor point).' },
+            'K': { app: 'Notes', isHomerow: true, mnemonic: 'Keep / Notes (Right middle finger).' },
+            'Q': { app: 'Antigravity', isHomerow: false, mnemonic: 'Quick access / Top left corner for secondary Antigravity app.' },
+            'W': { app: 'Whatsapp', isHomerow: false, mnemonic: 'Whatsapp.' },
+            'E': { app: 'Google Chrome', isHomerow: false, mnemonic: 'Explorer / Web Engine.' },
+            'R': { app: 'Reminders', isHomerow: false, mnemonic: 'Reminders.' },
+            'T': { app: 'Telegram', isHomerow: false, mnemonic: 'Telegram.' },
+            'Y': { app: 'App Store', isHomerow: false, mnemonic: 'whY / System tools row.' },
+            'U': { app: 'Safari', isHomerow: false, mnemonic: 'URL.' },
+            'I': { app: 'Passwords', isHomerow: false, mnemonic: 'Identity / Info.' },
+            'O': { app: 'OpenWhispr', isHomerow: false, mnemonic: 'OpenWhispr.' },
+            'P': { app: 'Preview', isHomerow: false, mnemonic: 'Preview.' },
+            'X': { app: 'Claude', isHomerow: false, mnemonic: 'eXpert / AI companion.' },
+            'C': { app: 'Calculator', isHomerow: false, mnemonic: 'Calculator.' },
+            'V': { app: 'Figma', isHomerow: false, mnemonic: 'Visuals / Vectors.' },
+            'B': { app: 'VLC', isHomerow: false, mnemonic: 'Broadcast / Media.' },
+            'N': { app: 'Spotify', isHomerow: false, mnemonic: 'Noise / Tunes (Near bottom row for media control).' },
+            'M': { app: 'Mail', isHomerow: false, mnemonic: 'Mail.' }
+        };
+
+        const layout = [
+            [{k: 'esc', c: 'esc'}, {k: 'f1', c: 'f-key'}, {k: 'f2', c: 'f-key'}, {k: 'f3', c: 'f-key'}, {k: 'f4', c: 'f-key'}, {k: 'f5', c: 'f-key'}, {k: 'f6', c: 'f-key'}, {k: 'f7', c: 'f-key'}, {k: 'f8', c: 'f-key'}, {k: 'f9', c: 'f-key'}, {k: 'f10', c: 'f-key'}, {k: 'f11', c: 'f-key'}, {k: 'f12', c: 'f-key'}],
+            [{k: 'grv'}, {k: '1'}, {k: '2'}, {k: '3'}, {k: '4'}, {k: '5'}, {k: '6'}, {k: '7'}, {k: '8'}, {k: '9'}, {k: '0'}, {k: '-'}, {k: '='}, {k: 'bspc', c: 'bspc'}],
+            [{k: 'tab', c: 'tab'}, {k: 'Q'}, {k: 'W'}, {k: 'E'}, {k: 'R'}, {k: 'T'}, {k: 'Y'}, {k: 'U'}, {k: 'I'}, {k: 'O'}, {k: 'P'}, {k: '['}, {k: ']'}, {k: '\\'}],
+            [{k: 'caps', c: 'caps'}, {k: 'A'}, {k: 'S'}, {k: 'D'}, {k: 'F'}, {k: 'G'}, {k: 'H'}, {k: 'J'}, {k: 'K'}, {k: 'L'}, {k: ';'}, {k: '\''}, {k: 'ret', c: 'ret'}],
+            [{k: 'lsft', c: 'lsft'}, {k: 'Z'}, {k: 'X'}, {k: 'C'}, {k: 'V'}, {k: 'B'}, {k: 'N'}, {k: 'M'}, {k: ','}, {k: '.'}, {k: '/'}, {k: '▲'}, {k: 'rsft', c: 'rsft'}],
+            [{k: 'fn', c: 'mod'}, {k: 'lctl', c: 'mod'}, {k: 'lalt', c: 'mod'}, {k: 'lmet', c: 'mod'}, {k: 'spc', c: 'spc'}, {k: 'rmet', c: 'mod'}, {k: 'ralt', c: 'mod'}, {k: '◀'}, {k: '▼'}, {k: '▶'}]
+        ];
+
+        const keyboardEl = document.getElementById('keyboard');
+        const detailsEl = document.getElementById('details');
+        const toggleBtn = document.getElementById('toggleHomerow');
+        let homerowMode = false;
+
+        function renderKeyboard() {
+            keyboardEl.innerHTML = '';
+            layout.forEach(row => {
+                const rowEl = document.createElement('div');
+                rowEl.className = 'row';
+                
+                row.forEach(keyObj => {
+                    const keyEl = document.createElement('div');
+                    keyEl.className = `key ${keyObj.c || ''}`;
+                    keyEl.textContent = keyObj.k;
+
+                    const keyUpper = keyObj.k.toUpperCase();
+                    if (mappings[keyUpper]) {
+                        keyEl.classList.add('mapped');
+                        if (mappings[keyUpper].isHomerow) keyEl.classList.add('homerow');
+                        
+                        // Interaction events
+                        const showDetails = () => updateDetails(keyUpper);
+                        const hideDetails = () => clearDetails();
+
+                        keyEl.addEventListener('mouseenter', showDetails);
+                        keyEl.addEventListener('mouseleave', hideDetails);
+                        keyEl.addEventListener('click', showDetails);
+                    }
+
+                    rowEl.appendChild(keyEl);
+                });
+                keyboardEl.appendChild(rowEl);
+            });
+            updateHomerowClasses();
+        }
+
+        function updateDetails(key) {
+            const data = mappings[key];
+            if (!data) return;
+            
+            const badgeHTML = data.isHomerow ? `<div class="badge">Homerow Anchor</div>` : '';
+            detailsEl.innerHTML = `
+                <h2>[ ${key} ] - ${data.app}</h2>
+                ${badgeHTML}
+                <p><strong>Mnemonic / Logic:</strong> ${data.mnemonic}</p>
+            `;
+        }
+
+        function clearDetails() {
+            detailsEl.innerHTML = `<div class="empty-state">Hover over a highlighted key to see details...</div>`;
+        }
+
+        function updateHomerowClasses() {
+            const keys = document.querySelectorAll('.key.mapped');
+            keys.forEach(k => {
+                if (homerowMode) k.classList.add('homerow-mode');
+                else k.classList.remove('homerow-mode');
+            });
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            homerowMode = !homerowMode;
+            toggleBtn.classList.toggle('active');
+            updateHomerowClasses();
+        });
+
+        // Initialize
+        renderKeyboard();
+    </script>
+</body>
+</html>
