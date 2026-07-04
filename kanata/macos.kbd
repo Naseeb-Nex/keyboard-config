@@ -181,7 +181,7 @@
   bright-down (cmd osascript -e r#"tell application "System Events" to key code 145"#)
   mute-toggle (cmd osascript -e "set volume output muted (not (output muted of (get volume settings)))")
   screen-lock (cmd osascript -e r#"tell application "System Events" to keystroke "q" using {control down, command down}"#)
-  screenshot (cmd screencapture -ci)
+  screenshot C-M-S-4
   bluetooth-off (cmd blueutil --power 0)
   bt-fav1-connect (cmd open "raycast://extensions/VladCuciureanu/toothpick/connect-favorite-device-1")
   bt-fav1-disconnect (cmd open "raycast://extensions/VladCuciureanu/toothpick/disconnect-favorite-device-1")
