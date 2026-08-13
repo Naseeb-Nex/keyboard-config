@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.example.kanata</string>
+    <key>WorkingDirectory</key>
+    <string>/Users/aiwithnex/.config/kanata</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/aiwithnex/.config/kanata/kanata_macos_cmd_allowed_arm64</string>
+        <string>--cfg</string>
+        <string>macos.kbd</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>StandardOutPath</key>
+    <string>/Library/Logs/Kanata/kanata.out.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Library/Logs/Kanata/kanata.err.log</string>
+</dict>
+</plist>

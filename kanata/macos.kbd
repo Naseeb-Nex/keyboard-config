@@ -60,6 +60,7 @@
   aopenw   (cmd open -a "OpenWhispr")
   aprevw   (cmd open -a "Preview")
   aantgi   (cmd open -a "Antigravity IDE")
+  aorca    (cmd open -a "Orca")
   azennn   (cmd open -a "Zen")
   acalen   (cmd open -a "Calendar")
   afindr   (cmd open -a "Finder")
@@ -148,7 +149,7 @@
   esc   XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
   grv   XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
   tab   @aantig  @awhats  @achrom  @aremin  @ateleg  @aappst  @asafar  @apassw  @aopenw  @aprevw  XX       XX       XX
-  XX    @aantgi  @azennn  @acalen  @afindr  @acomet  @atermi  @anotion @anotes  @asystm  XX       XX       ret
+  XX    @aorca   @azennn  @acalen  @afindr  @acomet  @atermi  @anotion @anotes  @asystm  XX       XX       ret
   lsft  XX       @aclaud  @acalcu  @afigma  @avlc    @aspoti  @amail   XX       XX       XX       ▲        rsft
   fn    lctl     lalt     lmet               spc               rmet     ralt     ◀        ▼        ▶
 )
