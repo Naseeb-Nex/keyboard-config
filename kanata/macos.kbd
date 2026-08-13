@@ -67,6 +67,7 @@
   acomet   (cmd open -a "Comet")
   atermi   (cmd open -a "Terminal")
   anotion  (cmd open -a "Notion")
+  aobsid   (cmd open -a "Obsidian")
   anotes   (cmd open -a "Notes")
   aclaud   (cmd open -a "Claude")
   acalcu   (cmd open -a "Calculator")
@@ -149,7 +150,7 @@
   esc   XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
   grv   XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX       XX
   tab   @aantig  @awhats  @achrom  @aremin  @ateleg  @aappst  @asafar  @apassw  @aopenw  @aprevw  XX       XX       XX
-  XX    @aorca   @azennn  @acalen  @afindr  @acomet  @atermi  @anotion @anotes  @asystm  XX       XX       ret
+  XX    @aorca   @azennn  @acalen  @afindr  @acomet  @atermi  @aobsid  @anotes  @asystm  XX       XX       ret
   lsft  XX       @aclaud  @acalcu  @afigma  @avlc    @aspoti  @amail   XX       XX       XX       ▲        rsft
   fn    lctl     lalt     lmet               spc               rmet     ralt     ◀        ▼        ▶
 )
